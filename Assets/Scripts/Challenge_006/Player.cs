@@ -50,8 +50,19 @@ namespace Challenge_006
             {
                 throw new MissingComponentException("floor component is not assign in the inspector");
             }
-            
+        }
+
+        /// <summary>
+        /// OnTriggerEnter is called when the Collider other enters the trigger.
+        /// </summary>
+        /// <param name="other">The other Collider involved in this collision.</param>
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject == _floor)
+            {
+                _floorMeshRenderer.material.color = Color.blue;
+                Destroy(this.gameObject);
+            }
         }
     }
-
 }
