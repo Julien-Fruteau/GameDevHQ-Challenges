@@ -9,8 +9,10 @@ namespace Challenge_006
     {
         // Start is called before the first frame update
         Rigidbody _rb;
-
         MeshRenderer _meshRenderer;
+        [SerializeField] private GameObject _floor;
+        MeshRenderer _floorMeshRenderer;
+
 
         // Hint that tricked me in UI, drag script from gameObject to event and not from script asset folder
         // so that event discover method
@@ -20,6 +22,8 @@ namespace Challenge_006
             {
                 _rb.useGravity = true;
             }
+
+            _floorMeshRenderer.material.color = Color.red;
         }
 
         void Start()
@@ -34,16 +38,19 @@ namespace Challenge_006
 
             // Get MeshRenderer to Access Color
             _meshRenderer = gameObject.GetComponent<MeshRenderer>();
-            // _meshRenderer.material.color = Color.blue;
 
             // tag player because we will use the tag to identify the Player when it will hit the floor
             gameObject.tag = "Player";
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-
+            if (_floor != null)
+            {
+                _floorMeshRenderer = _floor.GetComponent<MeshRenderer>();    
+            }
+            else
+            {
+                throw new MissingComponentException("floor component is not assign in the inspector");
+            }
+            
         }
     }
 
